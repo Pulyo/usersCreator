@@ -4,12 +4,11 @@ const rawData = fs.readFileSync('data.json');
 const movies = JSON.parse(rawData);
 
 let namesOfObj = createProfessionalObject(movies.movies);
-//console.log(namesOfObj);
 
 personInfoFiller(namesOfObj, movies.movies);
 console.log(namesOfObj)
 
-fs.writeFileSync('users.json', JSON.stringify(namesOfObj, null, 2));
+//fs.writeFileSync('users.json', JSON.stringify(namesOfObj, null, 2));
 
 function createProfessionalObject(movies) {
     let result = {};
