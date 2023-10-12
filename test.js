@@ -6,6 +6,11 @@ const movies = JSON.parse(rawData);
 let namesOfObj = createProfessionalObject(movies.movies);
 //console.log(namesOfObj);
 
+personInfoFiller(namesOfObj, movies.movies);
+console.log(namesOfObj)
+
+fs.writeFileSync('users.json', JSON.stringify(namesOfObj, null, 2));
+
 function createProfessionalObject(movies) {
     let result = {};
     movies.forEach((movie) => {
@@ -39,11 +44,6 @@ function createProfessionalObject(movies) {
     return finalResult;
 }
 
-personInfoFiller(namesOfObj, movies.movies);
-console.log(namesOfObj[3]['Paul Walker'].movies)
-
-
-//fs.writeFileSync('users.json', JSON.stringify(namesOfObj, null, 2));
 
 function personInfoFiller(namesOfObj, movies) {
     for (const nameOfObj of namesOfObj) {
@@ -52,19 +52,22 @@ function personInfoFiller(namesOfObj, movies) {
         for (const movie of movies) {
             //console.log(movie)
             if (movie.writers.includes(name)) {
-                nameOfObj[name].movies.title.push(movie.title);
+                if (!nameOfObj[name].movies.title.includes(movie.title))
+                    nameOfObj[name].movies.title.push(movie.title);
                 if (!nameOfObj[name].movies.roles.includes("writer")) {
                     nameOfObj[name].movies.roles.push("writer");
                 }
             }
             if (movie.actors.includes(name)) {
-                nameOfObj[name].movies.title.push(movie.title);
+                if (!nameOfObj[name].movies.title.includes(movie.title))
+                    nameOfObj[name].movies.title.push(movie.title);
                 if (!nameOfObj[name].movies.roles.includes("actors")) {
                     nameOfObj[name].movies.roles.push("actors");
                 }
             }
             if (movie.directors.includes(name)) {
-                nameOfObj[name].movies.title.push(movie.title);
+                if (!nameOfObj[name].movies.title.includes(movie.title))
+                    nameOfObj[name].movies.title.push(movie.title);
                 if (!nameOfObj[name].movies.roles.includes("directors")) {
                     nameOfObj[name].movies.roles.push("directors");
                 }
